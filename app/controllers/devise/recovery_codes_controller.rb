@@ -58,7 +58,7 @@ class Devise::RecoveryCodesController < DeviseController
   end
 
   def resource_params
-    return params.require(resource_name.to_sym).permit(:email, :gauth_recovery_code, :tmp_id, :current_password) if strong_parameters_enabled?
+    return params.require(resource_name.to_sym).permit(:email, :gauth_recovery_code, :tmpid, :current_password) if strong_parameters_enabled?
     params[resource_name.to_sym]
   end
 
