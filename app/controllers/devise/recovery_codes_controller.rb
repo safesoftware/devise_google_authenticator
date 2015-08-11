@@ -26,7 +26,7 @@ class Devise::RecoveryCodesController < DeviseController
   end
 
   def verify_code
-    resource = resource_class.find_by_gauth_tmp(resource_params[:tmpid])
+    resource = resource_class.find_by(gauth_tmp: resource_params[:tmpid])
     if not resource.nil?
 
       if resource.valid_recovery_code?(resource_params[:gauth_recovery_code])

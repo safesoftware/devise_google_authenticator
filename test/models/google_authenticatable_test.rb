@@ -47,8 +47,8 @@ class GoogleAuthenticatableTest < ActiveSupport::TestCase
 	end
 
 	test 'testing class method for finding by tmp key' do
-		assert User.find_by_gauth_tmp('invalid').nil?
-		assert !User.find_by_gauth_tmp(User.find(1).gauth_tmp).nil?
+		assert User.find_by(gauth_tmp: 'invalid').nil?
+		assert !User.find_by(gauth_tmp: User.find(1).gauth_tmp).nil?
 	end
 
 	test 'testing token validation' do

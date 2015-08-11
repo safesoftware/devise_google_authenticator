@@ -96,9 +96,6 @@ module Devise # :nodoc:
       end
 
       module ClassMethods # :nodoc:
-        def find_by_gauth_tmp(gauth_tmp)
-          find(:first, :conditions => {:gauth_tmp => gauth_tmp})
-        end
         ::Devise::Models.config(self, :ga_timeout, :ga_timedrift, :ga_remembertime)
       end
     end
