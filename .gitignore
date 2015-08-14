@@ -50,6 +50,12 @@ pkg
 # For Project
 test/rails_app/log/
 test/rails_app/db/*.sqlite3
+test/rails_app/tmp
 Gemfile.lock
 .ruby-version
 .ruby-gemset
+
+# Rubymine
+.idea*
+# RVM
+.rvmrc*

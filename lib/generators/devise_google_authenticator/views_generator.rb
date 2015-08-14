@@ -13,6 +13,7 @@ module DeviseGoogleAuthenticator
       def copy_views
         view_directory :checkga
         view_directory :displayqr
+        view_directory :recovery_codes
       end
     end
   end

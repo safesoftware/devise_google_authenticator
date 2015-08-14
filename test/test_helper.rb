@@ -9,8 +9,12 @@ require "orm/#{DEVISE_ORM}"
 require 'rails/test_help'
 require 'capybara/rails'
 require 'timecop'
+require 'debugger'
+require 'database_cleaner'
 
 I18n.load_path << File.expand_path("../support/locale/en.yml", __FILE__) if DEVISE_ORM == :mongoid
+
+DatabaseCleaner.strategy = :transaction
 
 ActiveSupport::Deprecation.silenced = true
 
@@ -19,4 +23,11 @@ class ActionDispatch::IntegrationTest
 end
 class ActionController::TestCase
 	include Devise::TestHelpers
+end
+
+class ActiveSupport::TestCase
+  # Stop ActiveRecord from wrapping tests in transactions
+  self.use_transactional_fixtures = false
+  setup { DatabaseCleaner.start }
+  teardown { DatabaseCleaner.clean }
 end

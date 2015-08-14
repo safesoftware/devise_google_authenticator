@@ -62,7 +62,32 @@ module Devise # :nodoc:
           return last_logged_in_email != self.email || (Time.now.to_i - last_logged_in_time) > self.class.ga_remembertime.to_i
         end
 
+        def create_recovery_codes(password)
+          unencrypted_codes = 20.times.inject([]) { |res, n| res << SecureRandom.hex(5) }
+          self.gauth_recovery_codes = unencrypted_codes.inject([]) { |res, code| res << BCrypt::Password.create(code).to_s }
+          save!
+          unencrypted_codes
+        end
+
+        def valid_recovery_code?(recovery_code)
+          enc_codes = self.gauth_recovery_codes
+          enc_codes.each do |code|
+            if BCrypt::Password.new(code) == recovery_code
+              # remove used recovery code
+              enc_codes.delete_at(enc_codes.index(code))
+              self.gauth_recovery_codes = enc_codes
+              save!
+              return true
+            end
+          end
+          false
+        end
+
         private
+
+        def assign_auth_secret_and_recovery_codes
+          assign_auth_secret
+        end
 
         def assign_auth_secret
           self.gauth_secret = ROTP::Base32.random_base32(64)
@@ -71,9 +96,6 @@ module Devise # :nodoc:
       end
 
       module ClassMethods # :nodoc:
-        def find_by_gauth_tmp(gauth_tmp)
-          find(:first, :conditions => {:gauth_tmp => gauth_tmp})
-        end
         ::Devise::Models.config(self, :ga_timeout, :ga_timedrift, :ga_remembertime)
       end
     end

@@ -47,8 +47,8 @@ class GoogleAuthenticatableTest < ActiveSupport::TestCase
 	end
 
 	test 'testing class method for finding by tmp key' do
-		assert User.find_by_gauth_tmp('invalid').nil?
-		assert !User.find_by_gauth_tmp(User.find(1).gauth_tmp).nil?
+		assert User.find_by(gauth_tmp: 'invalid').nil?
+		assert !User.find_by(gauth_tmp: User.find(1).gauth_tmp).nil?
 	end
 
 	test 'testing token validation' do
@@ -67,6 +67,21 @@ class GoogleAuthenticatableTest < ActiveSupport::TestCase
 		assert u.require_token?(u.email + "," + 2.months.ago.to_i.to_s)
 		assert !u.require_token?(u.email + "," + 1.day.ago.to_i.to_s)
 		assert u.require_token?("testxx@test.com" + "," + 1.day.ago.to_i.to_s)
-	end
+  end
+
+  test 'create recovery codes' do
+    u = User.find(1)
+    u.create_recovery_codes('mypwd')
+    assert_equal u.gauth_recovery_codes.class, Array
+    assert_equal u.gauth_recovery_codes.length, 20
+  end
+
+  test 'checking a recovery code for its validity' do
+    u = User.find(1)
+    unencrypted = u.create_recovery_codes('mypwd')
+    assert_equal true, u.valid_recovery_code?(unencrypted[0])
+    assert_equal false, u.valid_recovery_code?('badPwd')
+    assert_equal 19, u.gauth_recovery_codes.length
+  end
 
 end

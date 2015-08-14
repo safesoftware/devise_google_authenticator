@@ -5,16 +5,12 @@ class ActionController::IntegrationTest
   end
   
   def create_full_user
-    @@user ||= begin
-      user = User.create!(
+      User.create!(
         :username              => 'usertest',
         :email                 => 'fulluser@test.com',
         :password              => '123456',
         :password_confirmation => '123456'
       )
-      @@user = user
-      user
-    end
   end
 
   def create_and_signin_gauth_user

@@ -13,6 +13,7 @@ module DeviseGoogleAuthenticator
 				  inject_into_file(path, "google_authenticatable, :", :after => "devise :")
 				  inject_into_file(path, "gauth_enabled, :gauth_tmp, :gauth_tmp_datetime, :", :after => "attr_accessible :") if needs_attr_accessible?
 				  inject_into_class(path, class_name, "\tattr_accessor :gauth_token\n")
+				  inject_into_class(path, class_name, "\tserialize :gauth_recovery_codes, Array\n")
 				end
 			end
 

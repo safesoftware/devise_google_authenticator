@@ -34,7 +34,7 @@ class Devise::DisplayqrController < DeviseController
 
   def resource_params
     return params.require(resource_name.to_sym).permit(:gauth_enabled) if strong_parameters_enabled?
-    params
+    params[resource_name.to_sym]
   end
 
   def strong_parameters_enabled?

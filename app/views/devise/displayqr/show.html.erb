@@ -10,3 +10,5 @@
 	
 	<p><%= f.submit I18n.t('submit', {:scope => 'devise.registration'}) %></p>
 <% end %>
+
+<%= link_to I18n.t('title', {:scope => 'devise.recovery_codes.download'}), "#{send("#{resource_name}_recovery_codes_path")}" %>

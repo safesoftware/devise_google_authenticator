@@ -2,6 +2,8 @@ en:
   devise:
     submit_token: "Check Token"
     submit_token_title: "Please enter your Google Authenticator token:"
+    no_token: "Don't have your phone?"
+    login_with_code: "Enter a recovery code"
     registration:
       title: "Your QR Code:"
       nice_request: "Would you like to enable Google Authenticator?"
@@ -14,3 +16,11 @@ en:
     displayqr:
       user:
         status: "User status updated!"
+    recovery_codes:
+      verify: "Verify"
+      login:
+       title: "Enter your recovery code to log in"
+      download:
+        title: "Download your recovery codes"
+        button: "Download codes"
+

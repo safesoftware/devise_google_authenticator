@@ -1,0 +1,7 @@
+<h2><%= I18n.t('title', {:scope => 'devise.recovery_codes.login'}) %></h2>
+
+<%= form_for(resource, :as => resource_name, :url => [:verify_code, resource_name, :recovery_codes], :html => { :method => :post }) do |f| %>
+    <%= f.hidden_field :tmpid, {:value => @tmpid} %>
+    <%= text_field_tag :user_gauth_recovery_code, nil, :autocomplete => :off, :name => "user[gauth_recovery_code]"%>
+    <p><%= f.submit I18n.t('verify', {:scope => 'devise.recovery_codes'}) %></p>
+<% end %>

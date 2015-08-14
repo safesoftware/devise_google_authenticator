@@ -86,6 +86,7 @@ With this extension enabled, the following is expected behaviour:
 * If users can't self-register, they're still able to visit this page by visiting /MODEL/displayqr (eg: /users/displayqr).
 * If the function is enabled (for that user), when they sign in, they'll be prompted for their password (as per normal), but then redirected into the Check QR page. They have to enter their token (from their device) to then successfully authenticate.
 * If configured (by default to 1 month), the user will only be prompted for the token every 1 month.
+* If a user lost or wiped his phone he can log in using the recovery codes that he needs to download first by visiting /MODEL/recovery_codes (eg: /users/recovery_codes)
 
 == I18n
 
