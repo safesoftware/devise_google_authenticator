@@ -14,7 +14,7 @@ class Devise::CheckgaController < Devise::SessionsController
   end
 
   def update
-    resource = resource_class.find_by_gauth_tmp(params[resource_name]['tmpid'])
+    resource = resource_class.find_by(gauth_tmp: params[resource_name]['tmpid'])
 
     if not resource.nil?
 
