@@ -22,6 +22,10 @@ class Devise::DisplayqrController < DeviseController
     end
   end
 
+  def translation_scope
+    'devise.displayqr'
+  end
+
   private
   def scope
     resource_name.to_sym

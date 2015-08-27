@@ -47,6 +47,10 @@ class Devise::RecoveryCodesController < DeviseController
     end
   end
 
+  def translation_scope
+    'devise.recovery_codes'
+  end
+
   private
   def scope
     resource_name.to_sym

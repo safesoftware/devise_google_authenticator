@@ -41,6 +41,10 @@ class Devise::CheckgaController < Devise::SessionsController
     end
   end
 
+  def translation_scope
+    'devise.checkga'
+  end
+
   private
 
   def devise_resource

@@ -23,4 +23,7 @@ en:
       download:
         title: "Download your recovery codes"
         button: "Download codes"
+      user:
+        error: "Invalid recovery codes"
+
 
