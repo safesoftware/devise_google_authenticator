@@ -62,7 +62,7 @@ module Devise # :nodoc:
           return last_logged_in_email != self.email || (Time.now.to_i - last_logged_in_time) > self.class.ga_remembertime.to_i
         end
 
-        def create_recovery_codes(password)
+        def create_recovery_codes
           unencrypted_codes = 20.times.inject([]) { |res, n| res << SecureRandom.hex(5) }
           self.gauth_recovery_codes = unencrypted_codes.inject([]) { |res, code| res << BCrypt::Password.create(code).to_s }
           save!
@@ -84,10 +84,6 @@ module Devise # :nodoc:
         end
 
         private
-
-        def assign_auth_secret_and_recovery_codes
-          assign_auth_secret
-        end
 
         def assign_auth_secret
           self.gauth_secret = ROTP::Base32.random_base32(64)

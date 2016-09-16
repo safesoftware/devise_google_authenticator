@@ -11,10 +11,10 @@ class Devise::RecoveryCodesController < DeviseController
 
   def download
     if  resource.valid_password?(resource_params[:current_password])
-    @unencrypted_codes = resource.create_recovery_codes(resource_params[:current_password])
-    send_data(@unencrypted_codes.join("\n"),
-              type: 'text/plain; charset=utf-8',
-              disposition: 'attachment; filename=fmecloud_recovery_codes.txt')
+      @unencrypted_codes = resource.create_recovery_codes
+      send_data(@unencrypted_codes.join("\n"),
+                type: 'text/plain; charset=utf-8',
+                disposition: 'attachment; filename=fmecloud_recovery_codes.txt')
     else
       resource.errors.add(:current_password, resource_params[:current_password].blank? ? :blank : :invalid)
       render :index, status: 401
@@ -62,12 +62,7 @@ class Devise::RecoveryCodesController < DeviseController
   end
 
   def resource_params
-    return params.require(resource_name.to_sym).permit(:email, :gauth_recovery_code, :tmpid, :current_password) if strong_parameters_enabled?
-    params[resource_name.to_sym]
-  end
-
-  def strong_parameters_enabled?
-    defined?(ActionController::StrongParameters)
+    params.require(resource_name.to_sym).permit(:email, :gauth_recovery_code, :tmpid, :current_password)
   end
 
   def devise_resource
