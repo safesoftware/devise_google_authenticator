@@ -71,14 +71,14 @@ class GoogleAuthenticatableTest < ActiveSupport::TestCase
 
   test 'create recovery codes' do
     u = User.find(1)
-    u.create_recovery_codes('mypwd')
+    u.create_recovery_codes
     assert_equal u.gauth_recovery_codes.class, Array
     assert_equal u.gauth_recovery_codes.length, 20
   end
 
   test 'checking a recovery code for its validity' do
     u = User.find(1)
-    unencrypted = u.create_recovery_codes('mypwd')
+    unencrypted = u.create_recovery_codes
     assert_equal true, u.valid_recovery_code?(unencrypted[0])
     assert_equal false, u.valid_recovery_code?('badPwd')
     assert_equal 19, u.gauth_recovery_codes.length

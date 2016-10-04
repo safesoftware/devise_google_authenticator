@@ -19,7 +19,6 @@ end
 # a security extension for devise
 module DeviseGoogleAuthenticator
   autoload :Schema, 'devise_google_authenticatable/schema'
-  autoload :Patches, 'devise_google_authenticatable/patches'
 end
 
 
