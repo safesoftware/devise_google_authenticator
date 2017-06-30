@@ -1,6 +1,6 @@
 class Devise::RecoveryCodesController < DeviseController
-  prepend_before_filter :authenticate_scope!, except: [:verify_code]
-  prepend_before_filter :devise_resource, :only => [:login]
+  prepend_before_action :authenticate_scope!, except: [:verify_code]
+  prepend_before_action :devise_resource, :only => [:login]
   include Devise::Controllers::Helpers
 
   def index
